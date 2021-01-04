@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
+import SignUpValidation from '../Validation/SignupValidation';
 
 const initialFormValues ={
     username: '',
@@ -40,15 +41,24 @@ const SignUp = () =>{
 
 
     const changeSignUp = (name, value) =>{
-        yup.reach()
-        .validate()
+        yup.reach(SignUpValidation, name)
+        .validate(value)
         .then(() =>{
-
+            setSignUpFormErrors({
+                ...signUpFormErrors,
+                [name]: '',
+            });
         })
         .catch(() =>{
-
+            setSignUpFormErrors({
+                ...setSignUpFormErrors,
+                [name]: err.errors[0]
+            })
         })
-        setSignUpForm({})
+        setSignUpForm({
+            ...signUpForm,
+            [name]: value
+        });
     }
 
 
@@ -62,6 +72,15 @@ const SignUp = () =>{
         }
         registerNewUser(newUser);
     };
+
+
+    useEffect(() =>{
+        SignUpValidation.isValid(signUpForm).then((valid) =>{
+            setSignUpDisabled(!valid);
+        })
+    },[signUpForm])
+
+
 
     const onSubmit = evt =>{
         evt.preventDefault();
@@ -80,12 +99,21 @@ const SignUp = () =>{
             <div className='signup-page'>
                 <div className='signup-form'>
                     <h2>Sign Up</h2>
+
+                    <div className="errors">
+                        <p>{signUpFormErrors.firstName}</p>
+                        <p>{signUpFormErrors.lastName}</p>
+                        <p>{signUpFormErrors.email}</p>
+                        <p>{signUpFormErrors.password}</p>
+                    </div>
+
                     <div className='signup-inputs'>
 
                         <label>First Name:
                             <input
                             type='text'
                             name='firstName'
+                            placeholder='First Name'
                             value={signUpForm.firstName}
                             onChange={onChange}   
                             />
@@ -95,6 +123,7 @@ const SignUp = () =>{
                             <input
                             type='text'
                             name='lastName'
+                            placeholder='Last Name'
                             value={signUpForm.lastName}
                             onChange={onChange}   
                             />
@@ -104,6 +133,7 @@ const SignUp = () =>{
                             <input
                             type='text'
                             name='username'
+                            placeholder='Username'
                             value={signUpForm.username}
                             onChange={onChange}   
                             />
@@ -113,6 +143,7 @@ const SignUp = () =>{
                             <input
                             type='text'
                             name='password'
+                            placeholder='Password'
                             value={signUpForm.password}
                             onChange={onChange}   
                             />
