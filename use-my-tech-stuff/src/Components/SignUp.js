@@ -49,7 +49,7 @@ const SignUp = () =>{
                 [name]: '',
             });
         })
-        .catch(() =>{
+        .catch((err) =>{
             setSignUpFormErrors({
                 ...setSignUpFormErrors,
                 [name]: err.errors[0]
