@@ -76,7 +76,8 @@ const Login = () =>{
             <div className='login-page'>
                 <h2>Login</h2>
                 <div className='errors'>
-                
+                    <p>{loginFormError.username}</p>
+                    <p>{loginFormError.password}</p>
                 </div>
 
                 <div className='login-inputs'>
