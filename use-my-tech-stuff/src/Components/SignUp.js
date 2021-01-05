@@ -3,12 +3,15 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 import SignUpValidation from '../Validation/SignupValidation';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const initialFormValues ={
     username: '',
     password: '',
     firstName: '',
     lastName: '',
+    userType: ['owner', 'renter'],
 }
 
 const initialFormErrors ={
@@ -16,6 +19,7 @@ const initialFormErrors ={
     password: '',
     firstName: '',
     lastName: '',
+    userType:['owner', 'renter'],
 }
 
 const initialDisabled = true;
@@ -25,6 +29,7 @@ const SignUp = () =>{
     const [signUpUser, setSignUpUser] = useState([]);
     const [signUpFormErrors, setSignUpFormErrors] = useState(initialFormErrors);
     const [signUpDisabled, setSignUpDisabled] = useState(initialDisabled);
+    const [signUpUserType, setSignUpUserType] = useState([])
     const history = useHistory();
 
     const registerNewUser = newUser =>{
@@ -69,6 +74,8 @@ const SignUp = () =>{
             password:signUpForm.password.trim(),
             firstName:signUpForm.firstName.trim(),
             lastName:signUpForm.lastName.trim(),
+            userType: signUpForm.userType,
+
         }
         registerNewUser(newUser);
     };
@@ -105,6 +112,10 @@ const SignUp = () =>{
                         <p>{signUpFormErrors.lastName}</p>
                         <p>{signUpFormErrors.email}</p>
                         <p>{signUpFormErrors.password}</p>
+                        <p>{signUpFormErrors.userType}</p>
+
+
+
                     </div>
 
                     <div className='signup-inputs'>
@@ -149,6 +160,16 @@ const SignUp = () =>{
                             />
                         </label>
 
+                        <label
+                        name="userType"
+                        placeholder= 'Choose Account Type'
+                        onChange= {onChange}
+                        >
+                            <select>
+                            <option value= {signUpForm.userType.owner}>Owner</option>    
+                            <option value= {signUpForm.userType.renter}>Renter</option>
+                            </select>
+                        </label>
                     </div>
 
                     <button disabled={signUpDisabled}>Submit</button>
