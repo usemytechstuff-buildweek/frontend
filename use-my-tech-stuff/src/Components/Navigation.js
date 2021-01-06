@@ -6,7 +6,9 @@ const NavBar = () =>{
     
         <Link className='login' to='/login' >Login</Link>
 
-        <Link className='signup' to='signup' >Sign Up</Link>
+        <Link className='signup' to='/signup' >Sign Up</Link>
+
+        <Link className='techforrent' to='/tech' >View Tech</Link>
 
     </div>
 }
