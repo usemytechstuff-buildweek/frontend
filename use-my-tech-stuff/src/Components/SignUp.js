@@ -29,7 +29,6 @@ const SignUp = () => {
     const [signUpUser, setSignUpUser] = useState([]);
     const [signUpFormErrors, setSignUpFormErrors] = useState(initialFormErrors);
     const [signUpDisabled, setSignUpDisabled] = useState(initialDisabled);
-    const [signUpUserType, setSignUpUserType] = useState([])
     const history = useHistory();
 
     const registerNewUser = newUser => {
@@ -91,6 +90,7 @@ const SignUp = () => {
     const onSubmit = evt => {
         evt.preventDefault();
         signUpFormSubmit();
+        history.push('/tech')
     };
 
     const onChange = evt => {

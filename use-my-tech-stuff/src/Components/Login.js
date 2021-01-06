@@ -21,10 +21,12 @@ const Login = () => {
     const [loginForm, setLoginForm] = useState(initialLogin);
     const [loginFormError, setLoginFormError] = useState(initialLoginError);
     const [loginDisabled, setLoginDisabled] = useState(initialDisabled);
+
+    //will 
     const history = useHistory();
 
 
-    //need to acces users for login
+    
     const loginUser = user => {
         axios.post(`${BACKEND_LINK}/api/auth/login`, user)
 
@@ -67,6 +69,7 @@ const Login = () => {
     const onSubmit = evt => {
         evt.preventDefault();
         loginSubmit();
+        history.push('/tech')
     }
 
     const onChange = evt => {
