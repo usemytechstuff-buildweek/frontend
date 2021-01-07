@@ -33,7 +33,6 @@ const Login = () => {
         axios.post(`${BACKEND_LINK}/auth/login`, user) //using api link
             .then(res => {
                 localStorage.setItem("token", res.data.token); //grabbing JWT to use for authentication
-                history.push("/tech-protected");
             })
             .catch((err) => {
                 console.log(err);
