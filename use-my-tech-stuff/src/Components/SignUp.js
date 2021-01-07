@@ -32,7 +32,7 @@ const SignUp = () => {
     const history = useHistory();
 
     const registerNewUser = newUser => {
-        axios.post(`${BACKEND_LINK}/api/auth/register`, newUser)
+        axios.post(`${BACKEND_LINK}/auth/register`, newUser)
             .then((res) => {
                 setSignUpUser([...signUpUser, res.data]);
                 setSignUpForm(initialFormValues);
@@ -90,7 +90,7 @@ const SignUp = () => {
     const onSubmit = evt => {
         evt.preventDefault();
         signUpFormSubmit();
-        history.push('/tech')
+        history.push('/login') //should route to login as opposed to the landing page, probably
     };
 
     const onChange = evt => {

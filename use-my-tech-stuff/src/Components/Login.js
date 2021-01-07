@@ -8,11 +8,13 @@ import { BACKEND_LINK } from "../constants";
 const initialLogin = {
     username: '',
     password: '',
+    userType: "",
 }
 
 const initialLoginError = {
     username: '',
     password: '',
+    userType: "",
 }
 
 const initialDisabled = true;
@@ -26,10 +28,16 @@ const Login = () => {
     const history = useHistory();
 
 
-    
-    const loginUser = user => {
-        axios.post(`${BACKEND_LINK}/api/auth/login`, user)
 
+    const loginUser = user => {
+        axios.post(`${BACKEND_LINK}/auth/login`, user) //using api link
+            .then(res => {
+                localStorage.setItem("token", res.data.token); //grabbing JWT to use for authentication
+                history.push("/tech-protected");
+            })
+            .catch((err) => {
+                console.log(err);
+            });;
     }
 
     const loginInputChange = (name, value) => {
@@ -57,7 +65,7 @@ const Login = () => {
             username: loginForm.username.trim(),
             password: loginForm.password.trim(),
         }
-        loginUser(newLoginUser)
+        loginUser(newLoginUser);
     }
 
     useEffect(() => {
@@ -69,7 +77,7 @@ const Login = () => {
     const onSubmit = evt => {
         evt.preventDefault();
         loginSubmit();
-        history.push('/tech')
+        history.push('/tech-protected')
     }
 
     const onChange = evt => {

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from './Components/Navigation';
 import SignUp from './Components/SignUp';
 import Login from './Components/Login';
+import PrivateRoute from "./Components/PrivateRoute";
 import './App.css';
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
         <Switch>
           <Route exact path='/signup' component={SignUp}/>
           <Route exact path='/login' component={Login}/>
-          <Route exact path='/tech' component={TechForRent}/>
+          <PrivateRoute exact path='/tech-protected' component={TechForRent}/>
         </Switch>
         
       </div>
