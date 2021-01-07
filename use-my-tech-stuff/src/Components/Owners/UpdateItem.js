@@ -3,16 +3,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
 import { BACKEND_LINK } from "../../constants";
 
-const initialItem = {
-    rental_name: "",
-    price_per_day: "",
-    description: "",
-    rented: false,
-};
-
 const UpdateForm = (props) => {
     const { push } = useHistory();
-    const [item, setItem] = useState(initialItem);
     const { id } = useParams();
 
     useEffect(() => {
@@ -83,7 +75,7 @@ const UpdateForm = (props) => {
                     value={item.rented}
                 />
 
-                <button className="md-button form-button">Update</button>
+                <button>Update</button>
             </form>
         </div>
     );
