@@ -25,7 +25,7 @@ const UpdateForm = (props) => {
             .catch((err) => console.log(err));
     }, []);
 
-    const changeHandler = (event) => {
+    const onChange = (event) => {
         event.persist();
         const {name, value, type, checked} = event.target;
         const newValue = type === "checkbox" ? checked : value;
@@ -54,7 +54,7 @@ const UpdateForm = (props) => {
                 <input
                     type="text"
                     name="rental_name"
-                    onChange={changeHandler}
+                    onChange={onChange}
                     placeholder="Rental item name"
                     value={item.rental_name}
                 />
@@ -62,7 +62,7 @@ const UpdateForm = (props) => {
                 <input
                     type="number"
                     name="price_per_day"
-                    onChange={changeHandler}
+                    onChange={onChange}
                     placeholder="Price per day"
                     value={item.price_per_day}
                 />
@@ -70,7 +70,7 @@ const UpdateForm = (props) => {
                 <input
                     type="string"
                     name="description"
-                    onChange={changeHandler}
+                    onChange={onChange}
                     placeholder="Description"
                     value={item.description}
                 />
@@ -78,7 +78,7 @@ const UpdateForm = (props) => {
                 <input
                     type="checkbox"
                     name="rented"
-                    onChange={changeHandler}
+                    onChange={onChange}
                     placeholder="Rented?"
                     value={item.rented}
                 />
