@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import React from 'react';
+import Owner from './Owners/OwnerItems';
+import Listings from './LandingPage/Listings';
 
 
 
-const TechForRent = () =>{
+const TechForRent = (props) =>{
 
 
     return(
         <div>
-        if(userType === 'owner'? <Owner/>)
-        <Renter></Renter>
+        (userType === 'owner' ? <Owner/> : <Listings />)
         </div>
     )
 }
