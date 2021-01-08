@@ -11,7 +11,8 @@ const Item = () =>{
 
             <div classname='item-name-wrapper'>
                 <h2>{item.name}</h2>{/*can change for naming*/}
-                <h3>{item.h3riceOfRent}</h3>
+                <h2>{item.priceOfRent}</h2>
+                <h2>{item.owner}</h2>
             </div>
 
             <div>
