@@ -34,7 +34,7 @@ const UpdateForm = (props) => {
             .then(res => {
                 console.log(res);
                 props.setItems(res.data);
-                push("/tech-protected");
+                push("/tech-protected/user/:id");
             })
             .catch(err => console.log(err));
     };

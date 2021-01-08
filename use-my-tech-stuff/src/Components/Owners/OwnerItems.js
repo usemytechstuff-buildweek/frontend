@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useRouteMatch, useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
 import { BACKEND_LINK } from "../../constants";
 
@@ -10,34 +10,24 @@ const initialItem = {
     rented: false,
 };
 
-const initialUser = {
-    username: "",
-    password: "",
-    firstName: "",
-    lastName: ""
-}
-
-function OwnerItems() {
-    const { url } = useRouteMatch();
+function OwnerItems(props) {
     const { id } = useParams();
     const { push } = useHistory();
 
-    const [user, setUser] = useState(initialUser);
-    const [userRentals, setUserRentals] = useState([]);
     const [item, setItem] = useState(initialItem);
 
     useEffect(() => {
         axiosWithAuth.get(`${BACKEND_LINK}/users/${id}`) //not correct but will have to do for now, ask Livy about how to get id!
-            .then(res => setUser(res.data))
+            .then(res => props.setUser(res.data))
             .catch(err => console.log(err));
 
         axiosWithAuth.get(`${BACKEND_LINK}/users/${id}/rentals`)
-            .then(res => setUserRentals(res.data))
+            .then(res => props.setRentals(res.data))
             .catch(err => console.log(err)); //see above comment
     }, []);
 
     const goToUpdate = () => {
-        push("/tech-protected/:id/update");
+        push("/tech-protected/update");
     }
 
     const goToAdd = () => {
@@ -46,14 +36,14 @@ function OwnerItems() {
 
     return (
         <div>
-            <h1>{user.firstName}'s Rental Items</h1>
-            {userRentals.map(rental => {
+            <h1>{props.user.firstName}'s Rental Items</h1>
+            {props.rentals.map(rental => {
                 setItem(rental);
                 return (<div>
-                    <h3>{rental.rental_name}</h3>
-                    <p>{rental.price_per_day} per day</p>
-                    <p>{rental.description}</p>
-                    <p>Rented: {rental.rented === true ? "Yes" : "No"}</p>
+                    <h3>{item.rental_name}</h3>
+                    <p>{item.price_per_day} per day</p>
+                    <p>{item.description}</p>
+                    <p>Rented: {item.rented === true ? "Yes" : "No"}</p>
                     <button onClick={goToUpdate}>Update Listing</button>
                 </div>)
             })}
@@ -61,3 +51,5 @@ function OwnerItems() {
         </div>
     )
 }
+
+export default OwnerItems;
