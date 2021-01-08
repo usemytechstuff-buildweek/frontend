@@ -10,6 +10,7 @@ import OwnerItems from "./Components/OwnerItems";
 import UpdateItem from "./Components/UpdateItem";
 import PrivateRoute from "./Components/PrivateRoute";
 import './App.css';
+import TechForRent from './Components/TechForRent';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Switch>
           <Route exact path='/signup' component={SignUp} />
           <Route exact path='/' component={Login} />
-          <Route exact path='/listings' component={Listings}/>
+          <Route exact path='/listings' component={TechForRent}/>
           <Route exact path='/owner' component={Owner}/>
           <PrivateRoute path="/tech-protected/:id/update" component={UpdateItem} />
           <PrivateRoute path='/tech-protected' component={TechForRent} />
