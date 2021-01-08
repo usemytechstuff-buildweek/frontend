@@ -5,10 +5,6 @@ import NavBar from './Components/Navigation';
 import SignUp from './Components/SignUp';
 import Login from './Components/Login';
 
-import Listings from './Components/LandingPage/Listings';
-import Owner from './Components/LandingPage/Owner';
-import OwnerItems from "./Components/OwnerItems";
-
 import UpdateItem from "./Components/UpdateItem";
 import PrivateRoute from "./Components/PrivateRoute";
 import './App.css';
@@ -24,6 +20,7 @@ const initialUser = {
 function App() {
   const [user, setUser] = useState(initialUser);
   const [userRentals, setUserRentals] = useState([]);
+  const [rentals, setRentals] = useState([]);
 
   return (
     <Router>
@@ -33,10 +30,17 @@ function App() {
           <Route exact path='/signup' component={SignUp} />
           <Route exact path='/' component={Login} />
 
+          <PrivateRoute path="/tech-protected/add"
+            render={props =>
+              <AddItem {...props}
+                setRentals={setRentals}
+                setUserRentals={setUserRentals}
+              />}
+          />
           <PrivateRoute path="/tech-protected/update/:id"
             render={props =>
               <UpdateItem {...props}
-                setRentals={setUserRentals}
+                setUserRentals={setUserRentals}
               />}
           />
           <PrivateRoute path='/tech-protected/user/:id'
@@ -44,15 +48,12 @@ function App() {
               <TechForRent {...props}
                 user={user}
                 setUser={setUser}
-                rentals={userRentals}
-                setRentals={setUserRentals}
+                rentals={rentals}
+                setRentals={setRentals}
+                userRentals={userRentals}
+                setUserRentals={setUserRentals}
               />}
           />
-    
-          <Route exact path='/listings' component={TechForRent}/>
-          <Route exact path='/owner' component={Owner}/>
-          <PrivateRoute path="/tech-protected/:id/update" component={UpdateItem} />
-          <PrivateRoute path='/tech-protected' component={TechForRent} />
         </Switch>
 
       </div>

@@ -3,9 +3,18 @@ import { useParams, useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
 import { BACKEND_LINK } from "../../constants";
 
-const UpdateForm = (props) => {
+const initialItem = {
+    rental_name: "",
+    price_per_day: "",
+    description: "",
+    rented: false
+}
+
+const UpdateItem = (props) => {
     const { push } = useHistory();
     const { id } = useParams();
+
+    const [item, setItem] = useState(initialItem);
 
     useEffect(() => {
         axiosWithAuth
@@ -19,7 +28,7 @@ const UpdateForm = (props) => {
 
     const onChange = (event) => {
         event.persist();
-        const {name, value, type, checked} = event.target;
+        const { name, value, type, checked } = event.target;
         const newValue = type === "checkbox" ? checked : value;
         setItem({
             ...item,
@@ -33,7 +42,7 @@ const UpdateForm = (props) => {
             .put(`${BACKEND_LINK}/rentals/${id}`, item)
             .then(res => {
                 console.log(res);
-                props.setItems(res.data);
+                props.setUserRentals(res.data);
                 push("/tech-protected/user/:id");
             })
             .catch(err => console.log(err));
@@ -81,4 +90,4 @@ const UpdateForm = (props) => {
     );
 };
 
-export default UpdateForm;
+export default UpdateItem;
